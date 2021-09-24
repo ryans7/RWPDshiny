@@ -48,7 +48,7 @@ fillmap2<-function(map, figtitle, y , leg.loc="beside", y.scl=NULL,
   }
 }
 
-NCtracts=readOGR("/Users/ryanskeete/UNCW/MSC DATA SCIENCE/DSC551 Spatial Temporal Analysis/CaseStudy4/tl_2016_37_tract/tl_2016_37_tract.shp")
+NCtracts=readOGR("data/tl_2016_37_tract.shp")
 dim(NCtracts)
 NHtracts<-NCtracts[which(NCtracts$COUNTYFP=="129"),]
 NHtracts<-NHtracts[which(NHtracts$TRACTCE!=990100),]
@@ -56,10 +56,10 @@ NHtracts<-NHtracts[which(NHtracts$TRACTCE!=990100),]
 NHtracts$TRACTCE<-as.numeric(NHtracts$TRACTCE)
 NHtractsR<-NHtracts[order(NHtracts$TRACTCE),]
 
-data<-read_csv("/Users/ryanskeete/UNCW/MSC DATA SCIENCE/DSC551 Spatial Temporal Analysis/CaseStudy4/wpd_arrests_race_tract1018_clean.csv", show_col_types = FALSE)
-EfixedEffects_Tot=read.csv("/Users/ryanskeete/UNCW/MSC DATA SCIENCE/DSC551 Spatial Temporal Analysis/CaseStudy4/ExpfixedEffects_Tot.csv")[-1]
-EfixedEffects_B=read.csv("/Users/ryanskeete/UNCW/MSC DATA SCIENCE/DSC551 Spatial Temporal Analysis/CaseStudy4/ExpfixedEffects_Black.csv")[-1]
-EfixedEffects_W=read.csv("/Users/ryanskeete/UNCW/MSC DATA SCIENCE/DSC551 Spatial Temporal Analysis/CaseStudy4/ExpfixedEffects_White.csv")[-1]
+data<-read_csv("data/wpd_arrests_race_tract1018_clean.csv", show_col_types = FALSE)
+EfixedEffects_Tot=read.csv("data/ExpfixedEffects_Tot.csv")[-1]
+EfixedEffects_B=read.csv("data/ExpfixedEffects_Black.csv")[-1]
+EfixedEffects_W=read.csv("data/ExpfixedEffects_White.csv")[-1]
 data$census_tract_code<-as.numeric(data$census_tract_code)
 dataR=data[which(data$census_tract_code!=990100),]
 
@@ -81,7 +81,7 @@ dataR$SIR <- dataR$arrests_total/(sum(dataR$arrests_total)/sum(dataR$ct_pop)*dat
 dataR$SIR_B <- dataR$arrests_B/(sum(dataR$arrests_B)/sum(dataR$ct_black)*(dataR$ct_black)+0.1)
 dataR$SIR_W <- dataR$arrests_W/(sum(dataR$arrests_W)/sum(dataR$ct_white)*(dataR$ct_white)+0.1)
 
-d.inla=read.csv("/Users/ryanskeete/UNCW/MSC DATA SCIENCE/DSC551 Spatial Temporal Analysis/CaseStudy4/INLAdata.csv")[,-1]
+d.inla=read.csv("data/INLAdata.csv")[,-1]
 #Expected total arrests
 EcountTotArrests<-(sum(dataR$arrests_total)/sum(dataR$ct_pop)*dataR$ct_pop+0.1)
 #Create dummy variable called GovernmentEntity which 1 when either police depart or jail is 1

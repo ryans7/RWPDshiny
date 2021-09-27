@@ -1,6 +1,9 @@
 library(INLA)
 library(rgdal)
 library(tidyverse)
+library(visdat)
+library(viridis)
+library(maptools)
 library(shiny)
 
 fillmap2<-function(map, figtitle, y , leg.loc="beside", y.scl=NULL,
